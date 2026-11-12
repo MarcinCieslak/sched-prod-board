@@ -1,0 +1,25 @@
+body { margin: 0; font: 15px/1.4 system-ui, sans-serif; color: #1d1d1f; background: #fafafa; }
+header, main, footer { padding: 12px 24px; }
+h1 { margin: 0; font-size: 22px; }
+.sub { margin: 2px 0 0; color: #666; }
+.list { list-style: none; margin: 0; padding: 0; max-width: 960px; }
+.row { display: grid; grid-template-columns: 90px 50px 1fr 160px 130px; gap: 12px; align-items: center; min-height: 44px; padding: 0 12px; border-bottom: 1px solid #e5e5e5; background: #fff; }
+.row .id { font-family: ui-monospace, monospace; }
+.row.sev1 .sev { color: #b00020; font-weight: 600; }
+.row.sev2 .sev { color: #a15c00; }
+.row time { color: #555; font-variant-numeric: tabular-nums; }
+.row.is-acked { background: #f3faf4; }
+.ack { font: inherit; padding: 4px 14px; border: 1px solid #1d1d1f; border-radius: 6px; background: #fff; cursor: pointer; }
+.ack:hover:not(:disabled) { background: #1d1d1f; color: #fff; }
+.ack:disabled { opacity: .6; cursor: progress; }
+.acked { color: #1b7a34; font-weight: 600; white-space: nowrap; }
+.err { display: block; color: #b00020; font-size: 12px; }
+.loader, .empty { color: #555; }
+.spinner { display: inline-block; width: 12px; height: 12px; margin-right: 6px; border: 2px solid #ccc; border-top-color: #1d1d1f; border-radius: 50%; animation: spin .8s linear infinite; vertical-align: -1px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+footer { color: #777; font-size: 13px; }
+footer code { font-size: 12px; }
+@media (max-width: 720px) {
+  .row { grid-template-columns: 80px 44px 1fr; padding: 8px 12px; }
+  .row time, .row .action { grid-column: 3; }
+}
