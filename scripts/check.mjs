@@ -27,7 +27,15 @@ for (const viewer of [
   const rows = await page.locator('[data-testid="incident-row"]').count();
   ok(rows > 0, `${rows} incident rows`);
   ok(await page.locator('[data-testid="empty"]').isHidden(), 'empty state hidden');
-  ok(await page.locator('[data-testid="incident-row"] [data-testid="ack"]').count() === rows, 'one Ack button per row');
+  ok(await page.locator('[data-testid="incident-row"] [data-testid="ack"]').count() === 0, 'no Ack button in rows');
+  ok(await page.locator('[data-testid="incident-panel"]').isHidden(), 'panel closed until a row is picked');
+  const pickId = await page.locator('[data-testid="incident-row"]').nth(1).getAttribute('data-id');
+  await page.locator('[data-testid="incident-row"]').nth(1).click();
+  const panel = page.locator('[data-testid="incident-panel"]');
+  ok(await panel.isVisible() && (await panel.getAttribute('data-id')) === pickId && (await panel.textContent()).includes(pickId), `row click opens panel naming ${pickId}`);
+  ok((await panel.locator('[data-testid="panel-ack"]').textContent()).includes(pickId), 'panel Ack names the incident');
+  await page.keyboard.press('Escape');
+  ok(await panel.isHidden(), 'Escape closes the panel');
 
   const meta = await page.locator('meta[name="build"]').getAttribute('content');
   const footer = (await page.locator('[data-testid="build-sha"]').textContent()).trim();
